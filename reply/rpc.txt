@@ -1,0 +1,7 @@
+RPC: Remote Procdure Call
+
+
+t is a protocol that allows a computer program
+to request a service from a program located on 
+another computer or in a different network, 
+without having to understand the underlying network details.
