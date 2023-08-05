@@ -18,6 +18,8 @@ channel = connection.channel()
 # queue needs name, if not sent, randomly initialized
 channel.queue_declare(queue='one')
 
+
+
 # for direct exchange use ''
 # routing key is queue name
 channel.basic_publish(exchange='', routing_key='one', body='hello', properties=pika.BasicProperties(
