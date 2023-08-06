@@ -7,6 +7,8 @@ connection = pika.BlockingConnection(pika.ConnectionParameters(host='127.0.0.1',
 
 channel = connection.channel()
 
+###### در عین ناباوری با اینکه در کلاینت صف تعریف نشده است، ولی در صورتی که کلاینت زود‌ تر از سرور اجرا شود، سرور پیام‌های قبلی را هم نشان می‌دهد، واقعا سوال است که چرا؟؟ #####
+
 
 channel.exchange_declare(exchange='sourceEx', exchange_type='direct')
 channel.exchange_declare(exchange='destinationEx', exchange_type='fanout')

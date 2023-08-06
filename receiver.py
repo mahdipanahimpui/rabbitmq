@@ -4,13 +4,13 @@ import pika
 credentials = pika.PlainCredentials('root', '000')
 
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(host='127.0.0.1', credentials=credentials))
+connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost', credentials=credentials))
 
 channel = connection.channel()
 
 # maybe receiver start first so declare is important,
 # if queue exists, nothing
-channel.queue_declare(queue='one')
+channel.queue_declare(queue='q')
 
 # parameters is required
 def callback(channel, method, properties, body):
@@ -30,7 +30,7 @@ channel.basic_qos(prefetch_count=1)
 # by not using ack, message is not removed from the queue, so sending is topped and queue is more frequent
 # using <auto_ack=True> in basic_consume is not normal, 
 # it is prefered after computing the message(not just receiving) send an ack using method param
-channel.basic_consume(queue='one', on_message_callback=callback)
+channel.basic_consume(queue='q', on_message_callback=callback)
 
 print('Waiting for messages ...')
 

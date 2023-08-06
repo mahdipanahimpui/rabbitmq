@@ -8,7 +8,7 @@ credentials = pika.PlainCredentials('root', '000')
 
 # block connection, connection is blocked until a specific response is returned
 # sending paramete is available by <pika.ConnectionParameters>
-connection = pika.BlockingConnection(pika.ConnectionParameters(host='127.0.0.1', credentials=credentials))
+connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost', credentials=credentials))
 
 
 # <channel> is a wrapper for intracting with Rabbit-MQ
@@ -16,13 +16,13 @@ channel = connection.channel()
 
 
 # queue needs name, if not sent, randomly initialized
-channel.queue_declare(queue='one')
+channel.queue_declare(queue='q')
 
 
 
 # for direct exchange use ''
 # routing key is queue name
-channel.basic_publish(exchange='', routing_key='one', body='hello', properties=pika.BasicProperties(
+channel.basic_publish(exchange='', routing_key='q', body='hello', properties=pika.BasicProperties(
     # <properties> of message
     content_type='text/plain',
     content_encoding='gzip',
@@ -31,7 +31,7 @@ channel.basic_publish(exchange='', routing_key='one', body='hello', properties=p
     delivery_mode=2, # <delivery_mode>: 1: Write in RAM, 2: Write in DISK, effects on performance, by default is 1
     user_id='root',
     app_id='sender', # application name, can be consumer
-    type='direct,one', # by your requirements, may be 'exchange_name,queue_name',
+    type='direct,q', # by your requirements, may be 'exchange_name,queue_name',
     headers={'sender':'root', 'receiver': 'others'},
     # other in documentation
 ))
